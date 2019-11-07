@@ -1,0 +1,18 @@
+Here are some ideas that we came up with in the discord that we are trying to implement:
+
+This is a free form list and everyone should add things to it
+
+inspiration: https://www.reddit.com/r/EDM/comments/driio8/someone_created_their_own_edm_show_in_their/
+https://www.temposlighting.com/guides/how-to-add-custom-leds-to-any-project
+
+
+lights can synch to tempo based on an audio input
+
+we can make syncopating patterns that are off beat within beat intervals
+
+finding a way to program animations, possibly using keyframes.
+
+The DJ can control what animations are playing somehow
+
+
+At this point it seems like C++ is the language of choice, Raspberry Pi is the platform.

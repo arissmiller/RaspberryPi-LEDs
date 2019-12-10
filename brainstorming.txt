@@ -18,4 +18,5 @@ The DJ can control what animations are playing somehow
 At this point it seems like C++ is the language of choice, Raspberry Pi is the platform.
 
 Library for controlling LED matricies on Raspberry pi
+has samples in c++ and Python
 https://github.com/hzeller/rpi-rgb-led-matrix

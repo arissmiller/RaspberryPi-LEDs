@@ -22,11 +22,18 @@ def main():
             return(math.floor(((radius - distance)/radius) * 255))
 
         def heat_to_green(heat):
-            return(math.floor(heat/3), heat, math.floor(heat/3), math.floor(heat/3))
-
+            limitedHeat = 0
+            if(heat > 255):
+                limitedHeat = 255
+            return(math.floor(limitedHeat/3), limitedHeat, math.floor(limitedHeat/3), math.floor(limitedHeat/3))
+            #return (128, 128, 128, 128)
         def heat_to_yellow(heat):
-            return(math.floor(heat), heat, math.floor(heat/3), math.floor(heat/3))
+            limitedHeat = 0
+            if(heat > 255):
+                limitedHeat = 255
 
+            return(limitedHeat, limitedHeat, math.floor(limitedHeat/3), math.floor(limitedHeat/3))
+            #return (128, 128, 128, 128)
         def long_decay(heat):
             return(math.floor(heat/1.2))
         def short_decay(heat):
@@ -54,18 +61,19 @@ def main():
         pygame.display.flip()
         running = True
         while running:
-            screen.fill((0, 128, 0, 255))
+
             for i in range(0, len(visible_axistree_points)):
                 point = visible_axistree_points[i][0]
                 point.angle = math.radians(math.degrees(point.angle) + 1)
-                pygame.draw.circle(screen, (0,255,0), point.getCoordinates(), 10)
+                #pygame.draw.circle(screen, (0,255,0), point.getCoordinates(), 10)
                 sources[visible_axistree_points[i][1]].coords = point.getCoordinates()
 
+            screen.fill((0, 128, 0, 255))
+            renderHeatSources(screen, sources)
             for source in sources:
                 source.giveHeat()
                 source.decayHeat()
 
-            renderHeatSources(screen, sources)
             pygame.display.flip()
 
             for event in pygame.event.get():

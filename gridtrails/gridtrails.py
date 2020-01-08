@@ -27,10 +27,11 @@ class HeatSource:
                 distanceFromCenter = math.sqrt((i - self.coords[0])**2 + (j - self.coords[1])**2)
                 if((i,j) in self.gridtrail):
                     heat = self.gridtrail[(i,j)] + self.radiusToHeat(distanceFromCenter, self.radius)
+                    self.gridtrail[i,j] = heat
                 else:
                     if(distanceFromCenter <= self.radius):
                         heat = self.radiusToHeat(distanceFromCenter, self.radius)
-                self.gridtrail[(i,j)] = heat
+                        self.gridtrail[(i,j)] = heat
 
     def decayHeat(self):
         keys_to_delete = []
@@ -50,10 +51,10 @@ def renderHeatSources(screen, sources):
                 #average color with the color that is in pixelsToUpdate
                 oldcolor = pixelsToUpdate[key]
 
-                red = (calculatedColor[0] + oldcolor[0])/2
-                green = (calculatedColor[1] + oldcolor[1])/2
-                blue = (calculatedColor[2] + oldcolor[2])/2
-                alpha = (calculatedColor[3] + oldcolor[3])/2
+                red = math.floor((calculatedColor[0] + oldcolor[0])/2)
+                green = math.floor((calculatedColor[1] + oldcolor[1])/2)
+                blue = math.floor((calculatedColor[2] + oldcolor[2])/2)
+                alpha = math.floor((calculatedColor[3] + oldcolor[3])/2)
                 pixelsToUpdate[key] = (red, green, blue, alpha)
             else:
                 pixelsToUpdate[key] = calculatedColor

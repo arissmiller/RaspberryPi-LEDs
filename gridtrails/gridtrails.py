@@ -23,13 +23,12 @@ class HeatSource:
         #first, go through the rect defined by the radius of the heat HeatSource
         for i in range (self.coords[0] - self.radius, self.coords[0] + self.radius):
             for j in range (self.coords[1] - self.radius, self.coords[1] + self.radius):
-                heat = 0
                 distanceFromCenter = math.sqrt((i - self.coords[0])**2 + (j - self.coords[1])**2)
                 if((i,j) in self.gridtrail):
                     heat = self.gridtrail[(i,j)] + self.radiusToHeat(distanceFromCenter, self.radius)
                     self.gridtrail[i,j] = heat
                 else:
-                    if(distanceFromCenter <= self.radius):
+                    if(distanceFromCenter < self.radius - 1):
                         heat = self.radiusToHeat(distanceFromCenter, self.radius)
                         self.gridtrail[(i,j)] = heat
 
@@ -37,7 +36,7 @@ class HeatSource:
         keys_to_delete = []
         for key in self.gridtrail:
             self.gridtrail[key] = self.heatDecay(self.gridtrail[key])
-            if(self.gridtrail[key] == 0):
+            if(self.gridtrail[key] <= 0):
                 keys_to_delete.append(key)
         for key in keys_to_delete:
             del self.gridtrail[key]

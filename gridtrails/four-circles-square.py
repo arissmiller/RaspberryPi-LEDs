@@ -58,8 +58,12 @@ def main():
 
         def heat_to_green(heat):
             limitedHeat = 0
-            if(heat > 255):
+            if(heat >= 255):
                 limitedHeat = 255
+            elif(heat < 0):
+                limitedHeat = 0
+            else:
+                limitedHeat = heat
             return(math.floor(limitedHeat/3), limitedHeat, math.floor(limitedHeat/3), math.floor(limitedHeat/3))
             #return (128, 128, 128, 128)
         def heat_to_yellow(heat):
@@ -70,7 +74,11 @@ def main():
             return(limitedHeat, limitedHeat, math.floor(limitedHeat/3), math.floor(limitedHeat/3))
             #return (128, 128, 128, 128)
         def long_decay(heat):
-            return(math.floor(heat/1.05))
+            if(heat > 255):
+                return 255
+            if(heat - 5 < 0):
+                return 0
+            return heat - 5
         def short_decay(heat):
             return(math.floor(heat/2))
         sources = []
@@ -91,7 +99,7 @@ def main():
         xsteps = 0
         ysteps = 0
         xdir = 1
-        ydir = 1
+        ydir = -1
 
         while running:
 

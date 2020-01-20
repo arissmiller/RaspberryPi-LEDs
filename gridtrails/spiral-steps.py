@@ -15,17 +15,17 @@ def drawRectangle(axistree, width, height, screen, color):
     yo1 = math.sin(axistree.angle) * (width/2)
 
     lcenter = (center[0] - xo1, center[1] + yo1)
-    rcenter = (center[1] + xo1, center[1] - yo1)
+    rcenter = (center[0] + xo1, center[1] + yo1)
 
     xo2 = math.sin(axistree.angle) * (height/2)
-    yo2 = math.sin(axistree.angle) * (height/2)
+    yo2 = math.cos(axistree.angle) * (height/2)
 
-    topleft = (lcenter[0] + xo2, lcenter[1] - yo2)
-    bottomleft = (lcenter[0] - xo2, lcenter[1] - yo2)
-    topright = (rcenter[0] - xo2, rcenter[1] + yo2)
-    bottomright = (rcenter[0] + xo2, rcenter[1] - yo2)
+    topleft = (lcenter[0] - xo2, lcenter[1] - yo2)
+    bottomleft = (lcenter[0] - xo2, lcenter[1] + yo2)
+    topright = (rcenter[0] + xo2, rcenter[1] - yo2)
+    bottomright = (rcenter[0] + xo2, rcenter[1] + yo2)
 
-    pygame.draw.polygon(screen, color, [topleft, bottomleft, topright, bottomright])
+    pygame.draw.polygon(screen, color, [topleft, bottomleft, bottomright, topright])
 
 #draw a wheel of axistrees that fits within the screen
 #returns an array of points
@@ -44,8 +44,7 @@ def genWheel(screen_width, screen_height, steps_in_radius):
            #add a point on each side of the radius
            radius = i * stepSize + stepSize / 2
            point1 = Axistree(centerpoint, radius, 0, 0)
-           #does this keep points 1 and 2 always at 180 degrees from each other?
-           point2 = Axistree(centerpoint, radius, point1.angle + math.radians(180), 0)
+           point2 = Axistree(centerpoint, radius, math.radians(180), 0)
            points.append(point1)
            points.append(point2)
        return points

@@ -23,9 +23,7 @@ class Axistree:
             #determine the angle to vertical after all parent angles have been applied
             angleFromVertical = self.getAngleFromVertical()
             #find angle to be added to angle from vertical based on x offset
-            angleOffset = math.atan(self.xoffset/self.radius)
-            if(self.xoffset < 0):
-                angleOffset = angleOffset * -1
+            angleOffset = math.atan(self.xoffset/self.radius) * -1
 
             angleFromVertical = angleFromVertical + angleOffset
 

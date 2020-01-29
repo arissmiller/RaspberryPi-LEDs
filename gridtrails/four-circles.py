@@ -4,12 +4,13 @@ from axistree import Axistree
 from gridtrails import *
 
 def main():
-        screen_width = 800
-        screen_height = 800
-        pygame.init()
 
         visible_axistree_points = []
         source_points = {}
+
+        screen_width = 800
+        screen_height = 800
+        pygame.init()
 
         base = Axistree(None, math.floor(screen_width/2), 0, math.floor(screen_height / 2))
         visible_axistree_points.append((base, 0))
@@ -38,6 +39,9 @@ def main():
             return(math.floor(heat/1.2))
         def short_decay(heat):
             return(math.floor(heat/2))
+
+
+
 
         sources = []
         sourcesCounter = 0

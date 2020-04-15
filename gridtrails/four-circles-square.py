@@ -66,6 +66,36 @@ def main():
                 limitedHeat = heat
             return(math.floor(limitedHeat/3), limitedHeat, math.floor(limitedHeat/3), math.floor(limitedHeat/3))
             #return (128, 128, 128, 128)
+        def colorFire(heat):
+            #gold = rgb(255,215,0)
+            #orange = rgb(255,165,0)
+            #coral =  	rgb(255,127,80)
+            limitedHeat = 0
+            if(heat > 255):
+                limitedHeat = 255
+            else:
+                limitedHeat = heat
+
+            red = 255
+
+            greenRatio = heat / 255
+            greenRange = 255 - 127
+            green = math.floor(greenRatio * greenRange + 127)
+            if(green > 255):
+                green = 255
+            if (green < 0):
+                green = 0
+
+            blueRatio = heat / 255
+            blueRange = 80
+            blue = math.floor(80 - blueRatio * blueRange)
+            if(blue > 255):
+                blue = 255
+            if(blue < 0):
+                blue = 0
+
+            return(red, green, blue)
+
         def heat_to_yellow(heat):
             limitedHeat = 0
             if(heat > 255):
@@ -84,7 +114,7 @@ def main():
         sources = []
 
         for i in range(0, len(visible_axistree_points)):
-            sources.append(HeatSource(5, visible_axistree_points[i][0].getCoordinates(), linear_radius_to_heat, heat_to_green, long_decay))
+            sources.append(HeatSource(5, visible_axistree_points[i][0].getCoordinates(), linear_radius_to_heat, color_Fire, long_decay))
 
         screen = pygame.display.set_mode((screen_width, screen_height))
 
@@ -102,6 +132,7 @@ def main():
         ydir = -1
 
         while running:
+            base.angle += 3
 
             for i in range(0, len(visible_axistree_points)):
                 point = visible_axistree_points[i][0]

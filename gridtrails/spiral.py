@@ -28,6 +28,62 @@ def genWheel(screen_width, screen_height, steps_in_radius, rect_width):
 def linear_radius_to_heat(distance, radius):
     return(math.floor(((radius - distance)/radius) * 255))
 
+def colorFire(heat):
+    #gold = rgb(255,215,0)
+    #orange = rgb(255,165,0)
+    #coral =  	rgb(255,127,80)
+    limitedHeat = 0
+    if(heat > 255):
+        limitedHeat = 255
+    else:
+        limitedHeat = heat
+
+    red = 255
+    greenRatio = heat / 255
+    greenRange = 255 - 127
+    green = math.floor(greenRatio * greenRange + 127)
+    if(green > 255):
+        green = 255
+    if (green < 0):
+        green = 0
+
+    blueRatio = heat / 255
+    blueRange = 80
+    blue = math.floor(80 - blueRatio * blueRange)
+    if(blue > 255):
+        blue = 255
+    if(blue < 0):
+        blue = 0
+
+    return(red, green, blue)
+def colorIce(heat):
+    #ice = rgb(240,248,255)
+    #melt = rgb(173,216,230)
+    #water =rgb(30,144,255)
+    limitedHeat = 0
+    if(heat > 255):
+        limitedHeat = 255
+    else:
+        limitedHeat = heat
+    heatRatio = heat / 255
+
+    redRange = 240 - 30
+    red =(heatRatio * redRange + 30)
+    if(red > 255):
+        red = 255
+    if(red < 0):
+        red = 0
+
+    greenRange = 248 -144
+    green = heatRatio * greenRange + 30
+    if(green > 255):
+        green = 255
+    if(green < 0):
+        green = 0
+
+    blue = 230
+    return (red, green, blue)
+
 def heat_to_green(heat):
     limitedHeat = 0
     if(heat > 255):
@@ -55,7 +111,7 @@ def main():
     points = genWheel(screen_width, screen_height, num_steps, rect_width)
     sources = []
     for i in range(0, len(points)):
-        sources.append(HeatSource(10, points[i].getCoordinates(), linear_radius_to_heat, heat_to_green, decay1_2))
+        sources.append(HeatSource(10, points[i].getCoordinates(), linear_radius_to_heat, colorIce, decay1_2))
     running = True
     stepdirection = 1
     while running:
@@ -78,7 +134,6 @@ def main():
                 running = False
         #x = x + 20
         #y = y + 20
-        pygame.time.wait(20)
 
 if __name__=="__main__":
     main()

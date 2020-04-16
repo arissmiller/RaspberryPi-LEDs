@@ -114,7 +114,7 @@ def main():
         sources = []
 
         for i in range(0, len(visible_axistree_points)):
-            sources.append(HeatSource(5, visible_axistree_points[i][0].getCoordinates(), linear_radius_to_heat, color_Fire, long_decay))
+            sources.append(HeatSource(5, visible_axistree_points[i][0].getCoordinates(), linear_radius_to_heat, colorFire, long_decay))
 
         screen = pygame.display.set_mode((screen_width, screen_height))
 

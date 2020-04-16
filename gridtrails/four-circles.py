@@ -1,6 +1,8 @@
 import pygame
 import math
 from axistree import Axistree
+from colorfunctions import *
+from decayfunctions import *
 from gridtrails import *
 
 def main():
@@ -22,26 +24,6 @@ def main():
         def linear_radius_to_heat(distance, radius):
             return(math.floor(((radius - distance)/radius) * 255))
 
-        def heat_to_green(heat):
-            limitedHeat = 0
-            if(heat > 255):
-                limitedHeat = 255
-            return(math.floor(limitedHeat/3), limitedHeat, math.floor(limitedHeat/3), math.floor(limitedHeat/3))
-            #return (128, 128, 128, 128)
-        def heat_to_yellow(heat):
-            limitedHeat = 0
-            if(heat > 255):
-                limitedHeat = 255
-
-            return(limitedHeat, limitedHeat, math.floor(limitedHeat/3), math.floor(limitedHeat/3))
-            #return (128, 128, 128, 128)
-        def long_decay(heat):
-            return(math.floor(heat/1.2))
-        def short_decay(heat):
-            return(math.floor(heat/2))
-
-
-
 
         sources = []
         sourcesCounter = 0
@@ -52,11 +34,11 @@ def main():
                 new_child = Axistree(new_point, math.floor(screen_width/16), math.radians(j * 90), 0)
                 visible_axistree_points.append((new_child, sourcesCounter))
                 sourcesCounter += 1
-                sources.append(HeatSource(5, new_child.getCoordinates(), linear_radius_to_heat, heat_to_green, long_decay))
+                sources.append(HeatSource(5, new_child.getCoordinates(), linear_radius_to_heat, colorFire, make_linear_decay_function(1.4)))
             visible_axistree_points.append((new_point, sourcesCounter))
             sourcesCounter += 1
 
-            sources.append(HeatSource(5, new_point.getCoordinates(), linear_radius_to_heat, heat_to_yellow, short_decay))
+            sources.append(HeatSource(5, new_point.getCoordinates(), linear_radius_to_heat, colorIce, make_linear_decay_function(1.8)))
         screen = pygame.display.set_mode((screen_width, screen_height))
 
         #screen.blit(image, (0, 0))
@@ -72,7 +54,7 @@ def main():
                 #pygame.draw.circle(screen, (0,255,0), point.getCoordinates(), 10)
                 sources[visible_axistree_points[i][1]].coords = point.getCoordinates()
 
-            screen.fill((0, 128, 0, 255))
+            screen.fill((0, 0, 25, 255))
             renderHeatSources(screen, sources)
             for source in sources:
                 source.giveHeat()

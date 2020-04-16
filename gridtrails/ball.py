@@ -9,7 +9,7 @@ def main():
         #logo = pygame.image.load("logo32x32.png")
         #pygame.display.set_icon(logo)
         #pygame.display.set_caption("minimal program")
-        image = pygame.image.load("pygame-logo.png")
+        #image = pygame.image.load("pygame-logo.png")
 
         base = Axistree(None, 400, 0, 400)
         child1 = Axistree(base, 200, 0, 0)

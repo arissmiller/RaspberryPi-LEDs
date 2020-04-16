@@ -11,6 +11,7 @@ class HeatSource:
     def __init__(self, radius, coordinates, radiusToHeat, heatToColor, heatDecay):
         self.radius = radius
         self.coords = coordinates
+        self.prevCoords = None
         self.radiusToHeat = radiusToHeat
         self.heatToColor = heatToColor
         self.heatDecay = heatDecay
@@ -31,7 +32,10 @@ class HeatSource:
                     if(distanceFromCenter < self.radius - 1):
                         heat = self.radiusToHeat(distanceFromCenter, self.radius)
                         self.gridtrail[(i,j)] = heat
-
+        #get the vertical and horizontal delta between this position and the previous position
+        #for each point in the new rect, use vertical and horizontal delta to get point in old rect
+        #divide difference in heat between new rect point and old rect point by number of pixels between them to get steps
+        #step through line between points and decrement heat by step
     def decayHeat(self):
         keys_to_delete = []
         for key in self.gridtrail:
@@ -40,6 +44,10 @@ class HeatSource:
                 keys_to_delete.append(key)
         for key in keys_to_delete:
             del self.gridtrail[key]
+
+    def updateCoords(self, newCoords):
+        self.prevCoords = self.coords
+        self.coords = newCoords
 
 def renderHeatSources(screen, sources):
     pixelsToUpdate = {}
